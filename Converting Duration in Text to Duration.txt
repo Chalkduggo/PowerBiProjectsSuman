@@ -1,0 +1,49 @@
+let 
+    DurationF = [
+
+        //Extracting the Hour from  Text
+        hours = 
+        if 
+        Text.Contains([DurationText], "h") 
+        then 
+        Text.BeforeDelimiter([DurationText], "h")
+        else "0",
+        
+        //Extracting the Minute from  Text
+        minutes =
+        if 
+        Text.Contains([DurationText],"h") 
+        and 
+        Text.Contains([DurationText],"m")
+        then 
+        Text.BetweenDelimiters([DurationText], "h ", "m")
+        else if 
+        Text.Contains([DurationText],"m")
+        then 
+        Text.BeforeDelimiter([DurationText], "m")
+        else "0",
+
+        // Convert the extracted text to numbers
+        durationHours = 
+        if hours <> null 
+        then Number.FromText(hours) 
+        else 0,
+        durationMinutes = 
+        if minutes <> null 
+        then Number.FromText(minutes) 
+        else 0,
+
+        // Create the duration in Minutes
+        //If you Want the Output in Minutes Just Replace DurationF[DinMin]
+
+        DinMin= 
+        durationHours*60+durationMinutes,
+        
+       //Create the duration in "HH:MM:SS" Format
+       ////If you Want the Output in "HH:MM:SS" Just Replace DurationF[DinDu]
+
+        DinDu =
+        #duration(0,durationHours,durationMinutes,0)
+            ]
+in
+    DurationF[DinDu]
